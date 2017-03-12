@@ -11,6 +11,11 @@ const compiler = webpack(config)
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
   historyApiFallback: true,
+  stats: {
+    colors: true
+  },
+  quiet: false,
+  noInfo: false
 }))
 
 app.use(webpackHotMiddleware(compiler))
