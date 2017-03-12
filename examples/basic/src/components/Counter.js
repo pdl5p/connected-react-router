@@ -5,8 +5,8 @@ import { increment, decrement } from '../actions/counter'
 const Counter = (props) => (
   <div>
     Counter: {props.count}
-    <button onClick={props.increment}>+</button>
-    <button onClick={props.decrement}>-</button>
+    <button onClick={props.increment}>{'<'}+{'>'}</button>
+    <button onClick={props.decrement}>{'<'}-{'>'}</button>
   </div>
 )
 

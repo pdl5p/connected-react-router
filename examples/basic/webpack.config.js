@@ -19,9 +19,12 @@ module.exports = {
         test: /\.jsx?/,
         // Don't use .babelrc in `yarn link`-ed dependency's directory and use in current direction instead
         loader: 'babel-loader?babelrc=false&extends=' + path.resolve(__dirname, '.babelrc')
-      }
+      },
+      { test: /\.tsx?$/, include: /src/, use: 'babel-loader' },
+      { test: /\.tsx?$/, include: /src/, use: 'awesome-typescript-loader?silent=true' }
     ],
   },
+  resolve: { extensions: [ '.js', '.jsx', '.ts', '.tsx' ] },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
   ],
