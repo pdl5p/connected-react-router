@@ -1,4 +1,5 @@
 import * as React from 'react';
+import RouterButton from './RouterButton'
 
 //const logo = require('./jasminelogo.jpg');
 
@@ -55,6 +56,7 @@ class CustomerSearch extends React.Component<any, any>{
                 <h1>Customer Search</h1>
                 <input type="text" ref={(t) => this.searchBox = t} />
                 <button onClick={this.search}>Search</button>
+                <RouterButton />
             </div>
         )
     }
