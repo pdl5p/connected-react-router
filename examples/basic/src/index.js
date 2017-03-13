@@ -10,18 +10,6 @@ import Login from './components/Login';
 
 import rootReducer from './reducers'
 
-const history = createBrowserHistory()
-
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(
-  connectRouter(history)(rootReducer),
-  composeEnhancer(
-    applyMiddleware(
-      routerMiddleware(history),
-    ),
-  ),
-)
-
 function startUpWhenNotLoggedIn() {
 
   const renderLogin = () => {
@@ -30,7 +18,6 @@ function startUpWhenNotLoggedIn() {
       document.getElementById('react-root')
     )
   }
-
   renderLogin();
 
   if (module.hot) {
@@ -41,11 +28,21 @@ function startUpWhenNotLoggedIn() {
       store.replaceReducer(connectRouter(history)(rootReducer))
     })
   }
-
-
 }
 
 function startUpWhenLoggedIn() {
+
+  const history = createBrowserHistory()
+
+  const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  const store = createStore(
+    connectRouter(history)(rootReducer),
+    composeEnhancer(
+      applyMiddleware(
+        routerMiddleware(history),
+      ),
+    ),
+  )
 
   const render = () => {
     ReactDOM.render(
@@ -85,27 +82,22 @@ var isCallback = authContext.isCallback(window.location.hash);
 console.log("IsCallback", isCallback);
 
 if (isCallback) {
-
   authContext.handleWindowCallback();
-
   var loginError = authContext.getLoginError();
-
   if (isCallback && !loginError) {
     window.location = authContext._getItem(authContext.CONSTANTS.STORAGE.LOGIN_REQUEST);
   }
+  if(loginError){
+    alert(loginError);
+  }
 }
-else 
-{
+else {
   var user = authContext.getCachedUser();
   console.log("checkpoint");
 
   if (user) {
-    console.log("User", user);
-    setTimeout(() => {
-    }, 300);
     startUpWhenLoggedIn();
   } else {
-    console.log("No user");
     startUpWhenNotLoggedIn();
   }
 }
